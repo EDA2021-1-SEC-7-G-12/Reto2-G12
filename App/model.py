@@ -48,3 +48,88 @@ los mismos.
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 # Funciones de ordenamiento
+def NuevoCatalogo():
+    catalogo = {
+        "videos": None,
+        "categorias": None,
+        "indice_categorias": None
+    }
+    catalogo["videos"] = lt.newList("ARRAY_LIST")
+    catalogo["categorias"] = lt.newList("ARRAY_LIST")
+    catalogo["indice_categorias"] = mp.newMap(40,
+                                  maptype='CHAINING',
+                                  loadfactor=1)
+    return catalogo
+
+# Funciones para agregar informacion al catalogo
+
+
+def addVideo(catalogo, video):
+    lt.addLast(catalogo["videos"], video)
+
+
+def addCategoria(catalogo, categoria):
+    cat = newCategoria(categoria['id'], categoria['name'])
+    lt.addLast(catalogo['categorias'], cat)
+
+
+# Funciones para creacion de datos
+
+def newCategoria(id, name):
+    categoria = {'id': '', 'name': ''}
+    categoria['id'] = id
+    categoria['name'] = name
+    return categoria
+
+def loadIndice_categorias(catalogo): 
+    for x in catalogo["videos"]["elements"]:
+        if not mp.contains(catalogo["indice_categorias"], sacarcategoriaid(catalogo, x["category_id"])):
+            listavacia = lt.newList("ARRAY_LIST")
+            lt.addLast(listavacia, x)
+            mp.put(catalogo["indice_categorias"], sacarcategoriaid(catalogo, x["category_id"]), listavacia)
+        else:
+            lt.addLast(mp.get(catalogo["indice_categorias"], sacarcategoriaid(catalogo, x["category_id"]))["value"],x)
+
+# Funciones de consulta
+
+def cmpVideosByLikes(video1, video2):
+    return (int(video1["likes"]) > int(video2["likes"]))
+
+def sacaridcategoria(catalogo, nombre_categoria):
+    lista = catalogo["categorias"]
+    categoria = -1
+    for x in range(lista["size"]):
+        elemento = lt.getElement(lista, x)
+        if elemento["name"] == nombre_categoria:
+            categoria = elemento["id"]
+    return categoria
+
+def sacarcategoriaid(catalogo, idcategoria):
+    lista = catalogo["categorias"]
+    categoria = -1
+    for x in range(lista["size"]):
+        elemento = lt.getElement(lista, x)
+        if str(elemento["id"]) == str(idcategoria):
+            categoria = elemento["name"]
+    return categoria
+
+
+# Funciones utilizadas para comparar elementos dentro de una lista
+
+
+def cmpVideosByViews(video1, video2):
+    return (int(video1["views"]) > int(video2["views"]))
+
+
+def cmpVideosByLikes(video1, video2):
+    return (int(video1["likes"]) > int(video2["likes"]))
+
+def cmpVideosByAppearances(video1, video2):
+    return (int(video1["apariciones"]) > int(video2["apariciones"]))
+# Funciones de ordenamiento
+
+def buscarvideoslikescategorias(catalogo, categoria,numero):
+    lista = mp.get(catalogo["indice_categorias"],categoria)["value"].copy()
+    listasorteada = sa.sort(lista, cmpVideosByLikes)
+    return listasorteada.sub_list(0,numero)
+
