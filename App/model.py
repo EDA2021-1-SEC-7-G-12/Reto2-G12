@@ -92,8 +92,6 @@ def loadIndice_categorias(catalogo):
 
 # Funciones de consulta
 
-def cmpVideosByLikes(video1, video2):
-    return (int(video1["likes"]) > int(video2["likes"]))
 
 def sacaridcategoria(catalogo, nombre_categoria):
     lista = catalogo["categorias"]
@@ -122,7 +120,7 @@ def cmpVideosByViews(video1, video2):
 
 
 def cmpVideosByLikes(video1, video2):
-    return (int(video1["likes"]) > int(video2["likes"]))
+    return (int(video1["likes"]) < int(video2["likes"]))
 
 def cmpVideosByAppearances(video1, video2):
     return (int(video1["apariciones"]) > int(video2["apariciones"]))
@@ -131,5 +129,5 @@ def cmpVideosByAppearances(video1, video2):
 def buscarvideoslikescategorias(catalogo, categoria,numero):
     lista = mp.get(catalogo["indice_categorias"],categoria)["value"].copy()
     listasorteada = sa.sort(lista, cmpVideosByLikes)
-    return listasorteada.sub_list(0,numero)
+    return lt.subList(listasorteada,0,numero)
 
