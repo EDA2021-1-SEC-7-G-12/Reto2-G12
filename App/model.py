@@ -71,6 +71,7 @@ def addVideo(catalogo, video):
 
 
 def addCategoria(catalogo, categoria):
+    
     cat = newCategoria(categoria['id'], categoria['name'])
     lt.addLast(catalogo['categorias'], cat)
 
