@@ -43,11 +43,12 @@ catalog = None
 
 
 def loadData(catalog):
-    controller.loadData(catalog)
+    return controller.loadData(catalog)
 
 
-def initCatalog():
-    return controller.initCatalog()
+
+def initCatalog(tipo, loadfactor):
+    return controller.initCatalog(tipo, loadfactor)
 """
 Menu principal
 """
@@ -59,9 +60,11 @@ while True:
         loadfactor = float(input("Ingrese el factor de carga: "))
         print("Cargando información de los archivos ....")
         catalogo = initCatalog(tipo, loadfactor)
-        loadData(catalogo)
+        requerimientos = loadData(catalogo)
         controller.loadIndice_categorias(catalogo)
         print("Información cargada.")
+        print("Tiempo [ms]: ", f"{requerimientos[0]:.3f}", "  ||  ",
+              "Memoria [kB]: ", f"{requerimientos[1]:.3f}")
     elif int(inputs[0]) == 2:
         categoria = input("Ingrese el nombre de la categoría: ")
         numero = int(input("ingrese el numero de videos que quiere consultar: "))
