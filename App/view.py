@@ -55,8 +55,10 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
+        tipo = input("Ingrese el tipo de manejo de colisiones: ")
+        loadfactor = float(input("Ingrese el factor de carga: "))
         print("Cargando información de los archivos ....")
-        catalogo = initCatalog()
+        catalogo = initCatalog(tipo, loadfactor)
         loadData(catalogo)
         controller.loadIndice_categorias(catalogo)
         print("Información cargada.")
