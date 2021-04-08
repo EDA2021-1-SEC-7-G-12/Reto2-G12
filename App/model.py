@@ -54,7 +54,9 @@ def NuevoCatalogo(tipo, loadfacto):
         "categorias": None,
         "indice_categorias": None
     }
-    catalogo["videos"] = lt.newList("ARRAY_LIST")
+    catalogo["videos"] = mp.newMap(40,
+                                  maptype=tipo,
+                                  loadfactor=loadfacto)
     catalogo["categorias"] = lt.newList("ARRAY_LIST")
     catalogo["indice_categorias"] = mp.newMap(40,
                                   maptype=tipo,
@@ -65,7 +67,7 @@ def NuevoCatalogo(tipo, loadfacto):
 
 
 def addVideo(catalogo, video):
-    lt.addLast(catalogo["videos"], video)
+    mp.put(catalogo["videos"], video["video_id"], video)
 
 
 def addCategoria(catalogo, categoria):

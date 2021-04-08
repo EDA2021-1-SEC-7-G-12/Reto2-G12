@@ -61,7 +61,7 @@ while True:
         print("Cargando información de los archivos ....")
         catalogo = initCatalog(tipo, loadfactor)
         requerimientos = loadData(catalogo)
-        controller.loadIndice_categorias(catalogo)
+        #controller.loadIndice_categorias(catalogo)
         print("Información cargada.")
         print("Tiempo [ms]: ", f"{requerimientos[0]:.3f}", "  ||  ",
               "Memoria [kB]: ", f"{requerimientos[1]:.3f}")
