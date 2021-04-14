@@ -30,6 +30,7 @@ from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
 from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.Algorithms.Sorting import mergesort as ms
 assert cf
 
 """
@@ -124,34 +125,34 @@ def videospaiscategoría(numero,pais,categoria,catalogo):
 
 
 def videos_a_dias_trending(videos):
-    nodiccionario = lt.newList("ARRAY_LIST")
+    lst = lt.newList("ARRAY_LIST")
     listaids = []
-    for x in videos["elements"]:
-        if not x["video_id"] == "#NAME?":
-            if not x["video_id"] in listaids:
-                listaids.append(x["video_id"])
-                lt.addFirst(nodiccionario, {"id" : x["video_id"], "apariciones": 1})
+    for i in range(mp.valueSet(videos["videos"])["size"]):
+        if not i["video_id"] == "#NAME?":
+            if not i["video_id"] in listaids:
+                listaids.append(i["video_id"])
+                lt.addFirst(lst, {"id" : i["video_id"], "apariciones": 1})
             else:
-                for y in nodiccionario["elements"]:
-                    if y["id"] == x["video_id"]:
+                for y in lst["elements"]:
+                    if y["id"] == i["video_id"]:
                         y["apariciones"] += 1
-    diccionariosorteado = ms.sort(nodiccionario, cmpVideosByAppearances)
+    diccionariosorteado = ms.sort(lst, cmpVideosByAppearances)
     return diccionariosorteado
 
 
-def topdiastrendingporpais(catalog, pais):
-    catalog2 = lt.newList(catalog["videos"]["type"], catalog["videos"]["cmpfunction"])
-    if catalog["videos"]["type"] == "ARRAY_LIST":
-        for x in catalog["videos"]["elements"]:
-            if (pais == x["country"]):
-                lt.addFirst(catalog2, x)
-    sub_list = catalog2.copy()
-    respuesta = None
-    sorteado = videos_a_dias_trending(sub_list)
-    for x in sub_list["elements"]:
-        if x["video_id"] == sorteado["elements"][0]["id"]:
-            respuesta = x
-    return respuesta , sorteado["elements"][0]["apariciones"]
+def topdiastrendingporpais(catalogo, pais):
+    catalog2 = mp.newMap(40, maptype="PROBING")
+    vids=mp.valueSet(catalogo["videos"])
+    for i in range(mp.valueSet(catalogo["videos"])["size"]):
+        video= lt.getElement(vids, i)
+        if (pais == video["country"]):
+             mp.put(catalog2, str(video["title"]), video)
+    respuesta = ""
+    ordenado = videos_a_dias_trending(catalog2)
+    for i in catalog2["elements"]:
+        if i["video_id"] == ordenado["elements"][0]["id"]:
+            respuesta = i
+    return respuesta, sorteado["elements"][0]["apariciones"]
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 

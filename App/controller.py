@@ -75,4 +75,7 @@ def buscarvideoslikescategorias(catalogo,categoria,numero):
 def videospaiscategoría(numero,pais,categoría, catalogo):
     return model.videospaiscategoría(numero,pais,categoría,catalogo)
 
+def topdiastrendingporpais(catalogo, pais):
+    return model.topdiastrendingporpais(catalogo, pais)
+
 #Funciones copiadas literalmente del lab 7

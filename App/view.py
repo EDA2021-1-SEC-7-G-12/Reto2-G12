@@ -48,6 +48,14 @@ def printResults(ord_videos, mostrardos):
                   + video['dislikes'])
             i += 1
 
+
+def printResultPais(video, dias):
+    print(' Title: ' +
+                  video['title'] + ' Channel title: ' + video['channel_title']
+                  + ' Country: ' + video['country'] + ' Dias: ' +
+                  str(dias))
+
+
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
@@ -90,6 +98,8 @@ while True:
 
     elif int(inputs[0]) == 3:
         pais = input("Ingrese el país de su interés: ")
+        resultado = controller.topdiastrendingporpais(catalogo, pais)
+        print(resultado)
 
     elif int(inputs[0]) == 4:
         categoria = input("Ingrese la categoría de su interés: ")
