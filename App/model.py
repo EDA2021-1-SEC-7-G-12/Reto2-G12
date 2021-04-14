@@ -110,8 +110,8 @@ def sacarcategoriaid(catalogo, idcategoria):
             categoria = elemento["name"]
     return categoria
 
-def videospaiscategoría(numero,pais,categoría,catalogo):
-    category = sacaridcategoria(catalogo,categoría)
+def videospaiscategoría(numero,pais,categoria,catalogo):
+    category = sacaridcategoria(catalogo,categoria)
     mapacondiciones = mp.newMap(40, maptype="PROBING")
     videos = mp.valueSet(catalogo["videos"])
     for x in range(mp.valueSet(catalogo["videos"])["size"]):
@@ -123,7 +123,35 @@ def videospaiscategoría(numero,pais,categoría,catalogo):
     return listavideos
 
 
+def videos_a_dias_trending(videos):
+    nodiccionario = lt.newList("ARRAY_LIST")
+    listaids = []
+    for x in videos["elements"]:
+        if not x["video_id"] == "#NAME?":
+            if not x["video_id"] in listaids:
+                listaids.append(x["video_id"])
+                lt.addFirst(nodiccionario, {"id" : x["video_id"], "apariciones": 1})
+            else:
+                for y in nodiccionario["elements"]:
+                    if y["id"] == x["video_id"]:
+                        y["apariciones"] += 1
+    diccionariosorteado = ms.sort(nodiccionario, cmpVideosByAppearances)
+    return diccionariosorteado
 
+
+def topdiastrendingporpais(catalog, pais):
+    catalog2 = lt.newList(catalog["videos"]["type"], catalog["videos"]["cmpfunction"])
+    if catalog["videos"]["type"] == "ARRAY_LIST":
+        for x in catalog["videos"]["elements"]:
+            if (pais == x["country"]):
+                lt.addFirst(catalog2, x)
+    sub_list = catalog2.copy()
+    respuesta = None
+    sorteado = videos_a_dias_trending(sub_list)
+    for x in sub_list["elements"]:
+        if x["video_id"] == sorteado["elements"][0]["id"]:
+            respuesta = x
+    return respuesta , sorteado["elements"][0]["apariciones"]
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 

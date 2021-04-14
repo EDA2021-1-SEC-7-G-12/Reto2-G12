@@ -34,6 +34,20 @@ se hace la solicitud al controlador para ejecutar la
 operación solicitada
 """
 
+def printResults(ord_videos, mostrardos):
+    size = lt.size(ord_videos)
+    if size >= mostrardos:
+        print("Los primeros ", mostrardos, " videos ordenados son:")
+        i = 1
+        while i <= mostrardos:
+            video = lt.getElement(ord_videos, i)
+            print('Trending date: ' + video['trending_date'] + ' Title: ' +
+                  video['title'] + ' Channel title: ' + video['channel_title']
+                  + ' Publish time: ' + video['publish_time'] + ' Views: ' +
+                  video['views'] + ' Likes: ' + video['likes'] + ' Dislikes: '
+                  + video['dislikes'])
+            i += 1
+
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
@@ -52,8 +66,8 @@ def loadData(catalog):
 def initCatalog():
     return controller.initCatalog()
 
-def videospaiscategoria(numero,pais,categoría,catalogo):
-    return controller.videospaiscategoría(numero,pais,categoría,catalogo)
+def videospaiscategoria(numero, pais, categoria, catalogo):
+    return controller.videospaiscategoría(numero,pais,categoria,catalogo)
 """
 Menu principal
 """
@@ -71,8 +85,9 @@ while True:
         numero = int(input("ingrese el numero de videos que desea consultar: "))
         pais = input("Ingrese el país de su interés: ")
         categoria = input("Ingrese la categoría de su interés: ")
-        videos = videospaiscategoria(numero,pais,categoria,catalogo)
-        print(videos)
+        videos = videospaiscategoria(numero, pais, categoria, catalogo)
+        printResults(videos, int(numero))
+
     elif int(inputs[0]) == 3:
         pais = input("Ingrese el país de su interés: ")
 
