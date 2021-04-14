@@ -37,8 +37,10 @@ operación solicitada
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- Buscar los n videos con más LIKES para una categoría específica")
-
+    print("2- Buscar los videos con más views en un pais específico y una categoría de interés")
+    print("3- Buscar el video con mas días siendo tendencia en un país de interés")
+    print("4- Buscar el video con mas días siendo tendencia en una categoría de interés")
+    print("5- Buscar los videos con más likes en un pais específico y con una etiqueta específica")
 catalog = None
 
 
@@ -65,10 +67,22 @@ while True:
         print("Información cargada.")
         print("Tiempo [ms]: ", f"{requerimientos[0]:.3f}", "  ||  ",
               "Memoria [kB]: ", f"{requerimientos[1]:.3f}")
+    
     elif int(inputs[0]) == 2:
-        categoria = input("Ingrese el nombre de la categoría: ")
-        numero = int(input("ingrese el numero de videos que quiere consultar: "))
-        print(controller.buscarvideoslikescategorias(catalogo,categoria,numero))
+        numero = int(input("ingrese el numero de videos que desea consultar: "))
+        pais = input("Ingrese el país de su interés: ")
+        categoria = input("Ingrese la categoría de su interés: ")
+
+    elif int(inputs[0]) == 3:
+        pais = input("Ingrese el país de su interés: ")
+
+    elif int(inputs[0]) == 4:
+        categoria = input("Ingrese la categoría de su interés: ")
+        
+    elif int(inputs[0]) == 5:
+        numero = int(input("ingrese el numero de videos que desea consultar: "))
+        pais = input("Ingrese el país de su interés: ")
+        tag = input("Ingrese la etiqueta de su interés: ")
     else:
         sys.exit(0)
 sys.exit(0)
