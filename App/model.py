@@ -48,19 +48,17 @@ los mismos.
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 # Funciones de ordenamiento
-def NuevoCatalogo(tipo, loadfacto):
+def NuevoCatalogo():
     catalogo = {
         "videos": None,
         "categorias": None,
         "indice_categorias": None
     }
     catalogo["videos"] = mp.newMap(40,
-                                  maptype=tipo,
-                                  loadfactor=loadfacto)
+                                  maptype="CHAINING")
     catalogo["categorias"] = lt.newList("ARRAY_LIST")
     catalogo["indice_categorias"] = mp.newMap(40,
-                                  maptype=tipo,
-                                  loadfactor=loadfacto)
+                                  maptype="CHAINING")
     return catalogo
 
 # Funciones para agregar informacion al catalogo

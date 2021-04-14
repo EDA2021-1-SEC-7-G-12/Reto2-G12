@@ -49,8 +49,8 @@ def loadData(catalog):
 
 
 
-def initCatalog(tipo, loadfactor):
-    return controller.initCatalog(tipo, loadfactor)
+def initCatalog():
+    return controller.initCatalog()
 """
 Menu principal
 """
@@ -58,15 +58,11 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
-        tipo = input("Ingrese el tipo de manejo de colisiones: ")
-        loadfactor = float(input("Ingrese el factor de carga: "))
         print("Cargando información de los archivos ....")
-        catalogo = initCatalog(tipo, loadfactor)
-        requerimientos = loadData(catalogo)
+        catalogo = initCatalog()
+        loadData(catalogo)
         #controller.loadIndice_categorias(catalogo)
         print("Información cargada.")
-        print("Tiempo [ms]: ", f"{requerimientos[0]:.3f}", "  ||  ",
-              "Memoria [kB]: ", f"{requerimientos[1]:.3f}")
     
     elif int(inputs[0]) == 2:
         numero = int(input("ingrese el numero de videos que desea consultar: "))
