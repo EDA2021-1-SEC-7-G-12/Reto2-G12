@@ -63,7 +63,7 @@ def NuevoCatalogo():
 
 def addVideo(catalogo, video):
     mp.put(catalogo["videos"], str(video["video_id"]) + str(video["trending_date"])  + str(video["country"]), video)
-
+#Esa llave para cada video se usa para que el mismo video en distintos paises y en distintas fechas no sea reemplazado por solo una instancia de este video.
 
 def addCategoria(catalogo, categoria):
     
