@@ -51,6 +51,9 @@ def loadData(catalog):
 
 def initCatalog():
     return controller.initCatalog()
+
+def videospaiscategoria(numero,pais,categoría,catalogo):
+    return controller.videospaiscategoría(numero,pais,categoría,catalogo)
 """
 Menu principal
 """
@@ -68,7 +71,8 @@ while True:
         numero = int(input("ingrese el numero de videos que desea consultar: "))
         pais = input("Ingrese el país de su interés: ")
         categoria = input("Ingrese la categoría de su interés: ")
-
+        videos = videospaiscategoria(numero,pais,categoria,catalogo)
+        print(videos)
     elif int(inputs[0]) == 3:
         pais = input("Ingrese el país de su interés: ")
 

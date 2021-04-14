@@ -72,5 +72,7 @@ def loadIndice_categorias(catalogo):
 def buscarvideoslikescategorias(catalogo,categoria,numero):
     return model.buscarvideoslikescategorias(catalogo, categoria,numero)
 # Funciones de consulta sobre el catálogo
+def videospaiscategoría(numero,pais,categoría, catalogo):
+    return model.videospaiscategoría(numero,pais,categoría,catalogo)
 
 #Funciones copiadas literalmente del lab 7

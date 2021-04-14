@@ -52,13 +52,10 @@ def NuevoCatalogo():
     catalogo = {
         "videos": None,
         "categorias": None,
-        "indice_categorias": None
     }
     catalogo["videos"] = mp.newMap(40,
-                                  maptype="CHAINING")
+                                  maptype="PROBING")
     catalogo["categorias"] = lt.newList("ARRAY_LIST")
-    catalogo["indice_categorias"] = mp.newMap(40,
-                                  maptype="CHAINING")
     return catalogo
 
 # Funciones para agregar informacion al catalogo
@@ -94,6 +91,7 @@ def loadIndice_categorias(catalogo):
 # Funciones de consulta
 
 
+
 def sacaridcategoria(catalogo, nombre_categoria):
     lista = catalogo["categorias"]
     categoria = -1
@@ -112,6 +110,20 @@ def sacarcategoriaid(catalogo, idcategoria):
             categoria = elemento["name"]
     return categoria
 
+def videospaiscategoría(numero,pais,categoría,catalogo):
+    category = sacaridcategoria(catalogo,categoría)
+    mapacondiciones = mp.newMap(40, maptype="PROBING")
+    videos = mp.valueSet(catalogo["videos"])
+    for x in range(mp.valueSet(catalogo["videos"])["size"]):
+        video = lt.getElement(videos,x)
+        if (video["country"] == pais) and (int(video["category_id"]) == int(category)):
+            mp.put(mapacondiciones,video["video_id"],video)
+    sorteado = sa.sort(mp.valueSet(mapacondiciones),cmpVideosByViews)
+    listavideos = lt.subList(sorteado, 1, int(numero))
+    return listavideos
+
+
+
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
@@ -121,7 +133,7 @@ def cmpVideosByViews(video1, video2):
 
 
 def cmpVideosByLikes(video1, video2):
-    return (int(video1["likes"]) < int(video2["likes"]))
+    return (int(video1["likes"]) > int(video2["likes"]))
 
 def cmpVideosByAppearances(video1, video2):
     return (int(video1["apariciones"]) > int(video2["apariciones"]))
