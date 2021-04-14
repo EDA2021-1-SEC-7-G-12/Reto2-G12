@@ -62,7 +62,7 @@ def NuevoCatalogo():
 
 
 def addVideo(catalogo, video):
-    mp.put(catalogo["videos"], video["video_id"], video)
+    mp.put(catalogo["videos"], str(video["video_id"]) + str(video["trending_date"])  + str(video["country"]), video)
 
 
 def addCategoria(catalogo, categoria):
@@ -117,7 +117,7 @@ def videospaiscategoría(numero,pais,categoría,catalogo):
     for x in range(mp.valueSet(catalogo["videos"])["size"]):
         video = lt.getElement(videos,x)
         if (video["country"] == pais) and (int(video["category_id"]) == int(category)):
-            mp.put(mapacondiciones,video["video_id"],video)
+            mp.put(mapacondiciones,str(video["video_id"]) + str(video["trending_date"]) + str(video["country"]),video)
     sorteado = sa.sort(mp.valueSet(mapacondiciones),cmpVideosByViews)
     listavideos = lt.subList(sorteado, 1, int(numero))
     return listavideos
