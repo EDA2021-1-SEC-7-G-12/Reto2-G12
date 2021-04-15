@@ -80,4 +80,6 @@ def topdiastrendingporpais(catalogo, pais):
 
 def topdiastrendingporcategoria(catalogo, categoria):
     return model.topdiastrendingporcategoria(catalogo, categoria)
-#Funciones copiadas literalmente del lab 7
+
+def videosLikesTags(catalogo, numero, tag, pais):
+    return model.videosLikesTags(catalogo, numero, tag, pais)

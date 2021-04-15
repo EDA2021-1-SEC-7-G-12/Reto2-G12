@@ -172,6 +172,19 @@ def topdiastrendingporcategoria(catalogo, categoria):
         if lt.getElement(vids,i)["video_id"] == idutil:
             respuesta = lt.getElement(vids,i)
     return respuesta, sorteado["elements"][0]["apariciones"]
+
+def videosLikesTags(catalogo, numero, tag, pais):
+    catalog2=mp.newMap(40, maptype="PROBING")
+    vids=mp.valueSet(catalogo["videos"])
+    for i in range(mp.valueSet(catalogo["videos"])["size"]):
+        video= lt.getElement(vids, i)
+        if (tag in video["tags"]) and (pais==video["country"]):
+            lt.addLast(catalog2, video)
+    if catalog2["size"] < numero:
+            print("Excede el tamaño de la lista, ingrese un valor válido")   
+    else:
+        lista_ord = ms.sort(catalog2, cmpVideosByLikes)  
+    return lista_ord
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 

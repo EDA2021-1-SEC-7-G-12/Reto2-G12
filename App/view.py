@@ -56,6 +56,27 @@ def printResult2(video, dias):
                   str(dias))
 
 
+def printResultsLikes(ord_videos, mostrardos):
+    size = lt.size(ord_videos)
+    listaid = []
+    if size >= mostrardos:
+        print("Los ", mostrardos, " videos con mas likes son:")
+        i = 1
+        j = 1
+        while i <= mostrardos:
+            video = lt.getElement(ord_videos, j)
+            if not video["video_id"] in listaid:
+                listaid.append(video["video_id"])
+                print(' Title: ' +
+                  video['title'] + ' Channel title: ' + video['channel_title']
+                  + ' Publish time: ' + video['publish_time'] + ' Views: ' +
+                  video['views'] + ' Likes: ' + video['likes'] + ' Dislikes: '
+                  + video['dislikes'] + ' tags: '
+                  + video['tags'])
+                i += 1
+            j += 1
+
+
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
@@ -63,6 +84,7 @@ def printMenu():
     print("3- Buscar el video con mas días siendo tendencia en un país de interés")
     print("4- Buscar el video con mas días siendo tendencia en una categoría de interés")
     print("5- Buscar los videos con más likes en un pais específico y con una etiqueta específica")
+
 catalog = None
 
 
@@ -108,8 +130,10 @@ while True:
         
     elif int(inputs[0]) == 5:
         numero = int(input("ingrese el numero de videos que desea consultar: "))
-        pais = input("Ingrese el país de su interés: ")
         tag = input("Ingrese la etiqueta de su interés: ")
+        pais = input("Ingrese el país de su interés: ")
+        resultado=controller.videosLikesTags(catalogo, numero, tag, pais)
+        print(resultado)
     else:
         sys.exit(0)
 sys.exit(0)
