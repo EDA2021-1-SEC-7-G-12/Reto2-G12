@@ -103,6 +103,8 @@ while True:
 
     elif int(inputs[0]) == 4:
         categoria = input("Ingrese la categoría de su interés: ")
+        resultado = controller.topdiastrendingporcategoria(catalogo, categoria)
+        print(resultado)
         
     elif int(inputs[0]) == 5:
         numero = int(input("ingrese el numero de videos que desea consultar: "))

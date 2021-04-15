@@ -78,4 +78,6 @@ def videospaiscategoría(numero,pais,categoría, catalogo):
 def topdiastrendingporpais(catalogo, pais):
     return model.topdiastrendingporpais(catalogo, pais)
 
+def topdiastrendingporcategoria(catalogo, categoria):
+    return model.topdiastrendingporcategoria(catalogo, categoria)
 #Funciones copiadas literalmente del lab 7

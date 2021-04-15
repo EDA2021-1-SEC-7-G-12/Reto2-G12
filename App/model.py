@@ -157,6 +157,21 @@ def topdiastrendingporpais(catalogo, pais):
             respuesta = lt.getElement(vids,i)
     return respuesta, sorteado["elements"][0]["apariciones"]
 
+def topdiastrendingporcategoria(catalogo, categoria):
+    catalog2 = mp.newMap(40, maptype="PROBING")
+    vids=mp.valueSet(catalogo["videos"])
+    iddado = sacaridcategoria(catalogo, categoria)
+    for i in range(mp.valueSet(catalogo["videos"])["size"]):
+        video= lt.getElement(vids, i)
+        if (iddado == video["category_id"]):
+             mp.put(catalog2, str(video["video_id"]) + str(video["trending_date"]) + str(video["country"]), video)
+    respuesta = ""
+    sorteado = videos_a_dias_trending(catalog2)
+    idutil = sorteado["elements"][0]["id"]
+    for i in range(vids["size"]):
+        if lt.getElement(vids,i)["video_id"] == idutil:
+            respuesta = lt.getElement(vids,i)
+    return respuesta, sorteado["elements"][0]["apariciones"]
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 
