@@ -49,7 +49,7 @@ def printResults(ord_videos, mostrardos):
             i += 1
 
 
-def printResultPais(video, dias):
+def printResult2(video, dias):
     print(' Title: ' +
                   video['title'] + ' Channel title: ' + video['channel_title']
                   + ' Country: ' + video['country'] + ' Dias: ' +
@@ -99,12 +99,12 @@ while True:
     elif int(inputs[0]) == 3:
         pais = input("Ingrese el país de su interés: ")
         resultado = controller.topdiastrendingporpais(catalogo, pais)
-        printResultPais(resultado[0], resultado[1])
+        printResult2(resultado[0], resultado[1])
 
     elif int(inputs[0]) == 4:
         categoria = input("Ingrese la categoría de su interés: ")
         resultado = controller.topdiastrendingporcategoria(catalogo, categoria)
-        print(resultado)
+        printResult2(resultado[0], resultado[1])
         
     elif int(inputs[0]) == 5:
         numero = int(input("ingrese el numero de videos que desea consultar: "))
