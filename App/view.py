@@ -114,8 +114,10 @@ while True:
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
         catalogo = initCatalog()
-        loadData(catalogo)
+        datos = loadData(catalogo)
         print("Información cargada.")
+        print("Tiempo [ms]: ", f"{datos[1]:.3f}", "  ||  ",
+              "Memoria [kB]: ", f"{datos[0]:.3f}")
 
     elif int(inputs[0]) == 2:
         numero = int(input("Ingrese el numero de videos que desea consultar: "))
@@ -123,19 +125,24 @@ while True:
         categoria = input("Ingrese la categoría de su interés: ")
         print("Cargando información....")
         videos = videospaiscategoria(numero, pais, categoria, catalogo)
-        printResults(videos, int(numero))
-
+        printResults(videos[0], int(numero))
+        print("Tiempo [ms]: ", f"{videos[2]:.3f}", "  ||  ",
+              "Memoria [kB]: ", f"{videos[1]:.3f}")
     elif int(inputs[0]) == 3:
         pais = input("Ingrese el país de su interés: ")
         print("Cargando información....")
         resultado = controller.topdiastrendingporpais(catalogo, pais)
-        printResult2(resultado[0], resultado[1])
+        printResult2(resultado[0][0], resultado[0][1])
+        print("Tiempo [ms]: ", f"{resultado[2]:.3f}", "  ||  ",
+              "Memoria [kB]: ", f"{resultado[1]:.3f}")        
 
     elif int(inputs[0]) == 4:
         categoria = input("Ingrese la categoría de su interés: ")
         print("Cargando información....")
         resultado = controller.topdiastrendingporcategoria(catalogo, categoria)
-        printResult2(resultado[0], resultado[1])
+        printResult2(resultado[0][0], resultado[0][1])
+        print("Tiempo [ms]: ", f"{resultado[2]:.3f}", "  ||  ",
+              "Memoria [kB]: ", f"{resultado[1]:.3f}")
 
     elif int(inputs[0]) == 5:
         numero = int(input("Ingrese el numero de videos que desea consultar: "))
@@ -144,7 +151,9 @@ while True:
         print("Cargando información....")
         resultado = controller.videosLikesTags(catalogo, numero, tag, pais)
         if resultado is not None:
-            printResultsLikes(resultado, numero)
+            printResultsLikes(resultado[0], numero)
+            print("Tiempo [ms]: ", f"{resultado[2]:.3f}", "  ||  ",
+              "Memoria [kB]: ", f"{resultado[1]:.3f}")
     else:
         sys.exit(0)
 sys.exit(0)
