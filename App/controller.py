@@ -23,8 +23,6 @@
 import config as cf
 import model
 import csv
-import time
-import tracemalloc
 
 
 """
@@ -32,6 +30,7 @@ El controlador se encarga de mediar entre la vista y el modelo.
 """
 
 # Inicialización del Catálogo de libros
+
 
 def initCatalog():
     """
@@ -41,8 +40,9 @@ def initCatalog():
     return catalog
 
 
-
 # Funciones para la carga de datos
+
+
 def loadData(catalogo):
     """
     Carga los datos de los archivos y cargar los datos en la
@@ -66,20 +66,32 @@ def loadCategorias(catalogo):
     for categoria in input_file:
         model.addCategoria(catalogo, categoria)
 
+
 def loadIndice_categorias(catalogo):
     model.loadIndice_categorias(catalogo)
+
+
 # Funciones de ordenamiento
-def buscarvideoslikescategorias(catalogo,categoria,numero):
-    return model.buscarvideoslikescategorias(catalogo, categoria,numero)
+
+
+def buscarvideoslikescategorias(catalogo, categoria, numero):
+    return model.buscarvideoslikescategorias(catalogo, categoria, numero)
+
+
 # Funciones de consulta sobre el catálogo
-def videospaiscategoría(numero,pais,categoría, catalogo):
-    return model.videospaiscategoría(numero,pais,categoría,catalogo)
+
+
+def videospaiscategoría(numero, pais, categoría, catalogo):
+    return model.videospaiscategoría(numero, pais, categoría, catalogo)
+
 
 def topdiastrendingporpais(catalogo, pais):
     return model.topdiastrendingporpais(catalogo, pais)
 
+
 def topdiastrendingporcategoria(catalogo, categoria):
     return model.topdiastrendingporcategoria(catalogo, categoria)
+
 
 def videosLikesTags(catalogo, numero, tag, pais):
     return model.videosLikesTags(catalogo, numero, tag, pais)

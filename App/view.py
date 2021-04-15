@@ -34,6 +34,7 @@ se hace la solicitud al controlador para ejecutar la
 operación solicitada
 """
 
+
 def printResults(ord_videos, mostrardos):
     size = lt.size(ord_videos)
     if size >= mostrardos:
@@ -52,7 +53,7 @@ def printResults(ord_videos, mostrardos):
 def printResult2(video, dias):
     print(' Title: ' +
                   video['title'] + ' Channel title: ' + video['channel_title']
-                  + ' Country: ' + video['country'] + ' Dias: ' +
+                  + ' Category id: ' + video['category_id'] + ' Dias: ' +
                   str(dias))
 
 
@@ -84,6 +85,8 @@ def printMenu():
     print("3- Buscar el video con mas días siendo tendencia en un país de interés")
     print("4- Buscar el video con mas días siendo tendencia en una categoría de interés")
     print("5- Buscar los videos con más likes en un pais específico y con una etiqueta específica")
+    print("0- Salir de la aplicacion")
+
 
 catalog = None
 
@@ -92,15 +95,19 @@ def loadData(catalog):
     return controller.loadData(catalog)
 
 
-
 def initCatalog():
     return controller.initCatalog()
 
+
 def videospaiscategoria(numero, pais, categoria, catalogo):
-    return controller.videospaiscategoría(numero,pais,categoria,catalogo)
+    return controller.videospaiscategoría(numero, pais, categoria, catalogo)
+
+
 """
 Menu principal
 """
+
+
 while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
@@ -108,32 +115,35 @@ while True:
         print("Cargando información de los archivos ....")
         catalogo = initCatalog()
         loadData(catalogo)
-        #controller.loadIndice_categorias(catalogo)
         print("Información cargada.")
-    
+
     elif int(inputs[0]) == 2:
-        numero = int(input("ingrese el numero de videos que desea consultar: "))
+        numero = int(input("Ingrese el numero de videos que desea consultar: "))
         pais = input("Ingrese el país de su interés: ")
         categoria = input("Ingrese la categoría de su interés: ")
+        print("Cargando información....")
         videos = videospaiscategoria(numero, pais, categoria, catalogo)
         printResults(videos, int(numero))
 
     elif int(inputs[0]) == 3:
         pais = input("Ingrese el país de su interés: ")
+        print("Cargando información....")
         resultado = controller.topdiastrendingporpais(catalogo, pais)
         printResult2(resultado[0], resultado[1])
 
     elif int(inputs[0]) == 4:
         categoria = input("Ingrese la categoría de su interés: ")
+        print("Cargando información....")
         resultado = controller.topdiastrendingporcategoria(catalogo, categoria)
         printResult2(resultado[0], resultado[1])
-        
+
     elif int(inputs[0]) == 5:
-        numero = int(input("ingrese el numero de videos que desea consultar: "))
+        numero = int(input("Ingrese el numero de videos que desea consultar: "))
         tag = input("Ingrese la etiqueta de su interés: ")
         pais = input("Ingrese el país de su interés: ")
-        resultado=controller.videosLikesTags(catalogo, numero, tag, pais)
-        if not resultado == None:
+        print("Cargando información....")
+        resultado = controller.videosLikesTags(catalogo, numero, tag, pais)
+        if resultado is not None:
             printResultsLikes(resultado, numero)
     else:
         sys.exit(0)
