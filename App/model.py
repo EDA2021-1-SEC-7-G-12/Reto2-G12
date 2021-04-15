@@ -127,14 +127,16 @@ def videospaiscategoría(numero,pais,categoria,catalogo):
 def videos_a_dias_trending(videos):
     lst = lt.newList("ARRAY_LIST")
     listaids = []
-    for i in range(mp.valueSet(videos["videos"])["size"]):
-        if not i["video_id"] == "#NAME?":
-            if not i["video_id"] in listaids:
-                listaids.append(i["video_id"])
-                lt.addFirst(lst, {"id" : i["video_id"], "apariciones": 1})
+    todosvideos = mp.valueSet(videos)
+    for i in range(mp.valueSet(videos)["size"]):
+        video = lt.getElement(todosvideos,i)
+        if not video["video_id"] == "#NAME?":
+            if not video["video_id"] in listaids:
+                listaids.append(video["video_id"])
+                lt.addFirst(lst, {"id" : video["video_id"], "apariciones": 1})
             else:
                 for y in lst["elements"]:
-                    if y["id"] == i["video_id"]:
+                    if y["id"] == video["video_id"]:
                         y["apariciones"] += 1
     diccionariosorteado = ms.sort(lst, cmpVideosByAppearances)
     return diccionariosorteado
@@ -146,12 +148,13 @@ def topdiastrendingporpais(catalogo, pais):
     for i in range(mp.valueSet(catalogo["videos"])["size"]):
         video= lt.getElement(vids, i)
         if (pais == video["country"]):
-             mp.put(catalog2, str(video["title"]), video)
+             mp.put(catalog2, str(video["video_id"]) + str(video["trending_date"]) + str(video["country"]), video)
     respuesta = ""
-    ordenado = videos_a_dias_trending(catalog2)
-    for i in catalog2["elements"]:
-        if i["video_id"] == ordenado["elements"][0]["id"]:
-            respuesta = i
+    sorteado = videos_a_dias_trending(catalog2)
+    idutil = sorteado["elements"][0]["id"]
+    for i in range(vids["size"]):
+        if lt.getElement(vids,i)["video_id"] == idutil:
+            respuesta = lt.getElement(vids,i)
     return respuesta, sorteado["elements"][0]["apariciones"]
 
 # Funciones utilizadas para comparar elementos dentro de una lista
