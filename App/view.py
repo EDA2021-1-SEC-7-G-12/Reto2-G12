@@ -99,7 +99,7 @@ while True:
     elif int(inputs[0]) == 3:
         pais = input("Ingrese el país de su interés: ")
         resultado = controller.topdiastrendingporpais(catalogo, pais)
-        print(resultado)
+        printResultPais(resultado[0], resultado[1])
 
     elif int(inputs[0]) == 4:
         categoria = input("Ingrese la categoría de su interés: ")
