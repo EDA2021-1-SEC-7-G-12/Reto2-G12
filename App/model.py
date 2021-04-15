@@ -177,13 +177,13 @@ def videosLikesTags(catalogo, numero, tag, pais):
     catalog2=mp.newMap(40, maptype="PROBING")
     vids=mp.valueSet(catalogo["videos"])
     for i in range(mp.valueSet(catalogo["videos"])["size"]):
-        video= lt.getElement(vids, i)
+        video = lt.getElement(vids, i)
         if (tag in video["tags"]) and (pais==video["country"]):
-            lt.addLast(catalog2, video)
-    if catalog2["size"] < numero:
+            mp.put(catalog2, str(video["video_id"]) + str(video["trending_date"]) + str(video["country"]) , video )
+    if mp.valueSet(catalog2)["size"] < numero:
             print("Excede el tamaño de la lista, ingrese un valor válido")   
     else:
-        lista_ord = ms.sort(catalog2, cmpVideosByLikes)  
+        lista_ord = ms.sort(mp.valueSet(catalog2), cmpVideosByLikes)
     return lista_ord
 # Funciones utilizadas para comparar elementos dentro de una lista
 

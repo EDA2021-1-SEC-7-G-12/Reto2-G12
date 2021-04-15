@@ -133,7 +133,8 @@ while True:
         tag = input("Ingrese la etiqueta de su interés: ")
         pais = input("Ingrese el país de su interés: ")
         resultado=controller.videosLikesTags(catalogo, numero, tag, pais)
-        print(resultado)
+        if not resultado == None:
+            printResultsLikes(resultado, numero)
     else:
         sys.exit(0)
 sys.exit(0)
